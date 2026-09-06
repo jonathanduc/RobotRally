@@ -1,57 +1,100 @@
-# ProjectRobotRally
+# RobotRally - JavaFX Multiplayer Game
 
-## _Présentation :_ 
-Nous avons créé sur Java un jeu roborally qui de base était un jeu de société. Ce dernier se joue de 2 à 4 joueurs, Le but du jeu est d’une part de garder son robot en état de marche, et d’autre part d’être le premier à rallier dans l’ordre 5 checkpoints. Nous n'avons pas pu finir le jeu, ainsi il n'y a pas d'intérarction avec les cases spéciales. Néanmoins, nous les avons codées. 
-De plus, les images du plateau de notre jeu, étant très nombreuses nous n'avons pas pu les déposer. Toutes les autres classes en dehors du fichier RbrServer font partie du client et de l'interface. 
+Academic software-development project inspired by the **RoboRally** board game. The application was developed in Java with JavaFX and follows an MVC-oriented structure with a client/server architecture.
 
-## _Règles du jeu :_
-Pour se déplacer dans le jeu, chaque joueur recevra 9 cartes de direction et devra en sélectionner 5 qui définiront ainsi son parcours sur le plateau, et ce pour chaque tour. 
-Une fois ces 5 cartes choisies, le premier joueur joue sa première carte, le deuxième joueur sa première carte et ce jusqu’au dernier joueur. L’ordre de passage des joueurs est défini aléatoirement.
+> This was a **team project**. The repository is kept public as an earlier software-engineering project and as part of the progression visible in my GitHub profile.
 
-Au cours de la partie, des interactions avec les éléments de l’usine vont influer sur les joueurs, leur direction, position sur le plateau, ou encore sur leur point de vie et point de dégât.
-Les éléments de la fabrique qu’un robot peut rencontrer sont :
--	*Case Spirale* : change la direction du joueur.
--	*Case Mur* : empêche le joueur d’avancer.
--	*Case Boost* :  fait avancer le joueur de 1 en plus de l’avancement de sa carte.
--	*Case DoubleBoost* : fait avancer le joueur de 2 en plus de l’avancement de sa carte.
--	*Case Laser* : augmente les points de dégâts du joueur de 1, 2 ou 3 selon la clé associée à la case.
--	*Case BlackHole* : détruit le joueur et le renvoie à son dernier chekcpoint.
--	*Case Outils* : case de réparation, baisse les points de dégât du joueur de 1, 2 ou 3, selon la clé associée à la case.
+## Project objective
 
-L’importance des points de dégât et des points de vie est primordiale. 
-Si un joueur perd 1 point de vie, il meurt temporairement et est renvoyé au dernier checkpoint traversé. Au bout de 3 points de vie perdus, le robot est définitivement mort et le joueur éliminé.
-Si un jour possède 10 points de dégâts, alors il perd 1 point de vie. De plus, à partir de 5 points de dégâts, on ne distribue plus que 5 cartes au joueur, donc on ne lui permet plus de choisir les cartes qu’il veut parmi 9 proposées. Et de 6 à 10 points de dégâts, le nombre de carte distribuées au joueur diminue de 1 à 1.
+The goal was to recreate the main mechanics of RoboRally for **2 to 4 players**. Each player controls a robot and selects movement cards that determine the robot's actions during a turn.
 
-La joueur qui est passé par le plus de checkpoints gagne.	
+The intended game loop includes:
 
+- distribution of movement cards
+- selection of five cards per player
+- turn execution in player order
+- robot movement and orientation
+- checkpoints
+- damage and life management
+- special board tiles
+- multiplayer communication between clients and a server
 
-## _Liste des technologies :_
--	Java FX
--	Modèle MVC
--	Scène Builder
--	Sérialisation
--	Paint.net
+## Implemented architecture
 
-## _Les Bugs :_
-       - Parfois, le message 'Server is ready ne peut pas s'afficher sur la console, cela signifie surement que le port 
-       du serveur est déjà utilisé ou a trop était utilisé. Changer le port dans le fichier Main du serveur et aussi du Client !
-       - Certaines Cartes ne sont pas sélectionnables, nous n'avons pas réussi à débeugger. 
-       - Le joueur peut sortir du plateau nous n'avons pas eu le temps de régler le problème. 
+The repository contains both client-side game/interface code and server-side networking code.
 
-## _Source :_
--	YouTube
--	Stackoverflow
+```text
+.
+├── Main.java
+├── controllers/
+├── views/
+├── classes/
+├── player/
+├── Cards/
+└── RbRServer/
+```
 
+The project uses:
 
-## _Comment lancer le jeu :_
+- Java
+- JavaFX
+- FXML / Scene Builder
+- MVC-style separation
+- client/server communication
+- Java serialization
 
-Pour lancer le jeu, il vous suffit de Run le fichier Main du coté "RBR Server", quand le message "Server is ready" s'affiche dans la console. 
-Vous pourriez lancer le fichier Main coté "RBR Clien", vous lancer ce fichier tant de fois que vous désirez de joueur (Max 4). 
+## Gameplay concepts implemented
 
-## _Droit d’auteur :_
--> Alya ZOUZOU
--> Audric GIRONDIN
--> Noa THEBAUT
--> Jonathan DUCKES
--> Lucas MARTINEZ
-# RobotRally
+The codebase contains logic for several RoboRally mechanics, including movement cards and special board effects such as rotation tiles, walls, boosts, lasers, black holes, repair tiles, checkpoints and damage management.
+
+Some mechanics were implemented in code but were not fully integrated into a finished playable version.
+
+## Current limitations
+
+The project was not completed before the academic deadline. Known limitations from the original implementation include:
+
+- some special-board interactions are incomplete in the final playable flow
+- some movement cards can become unselectable
+- a robot can leave the board in some situations
+- the server port may need to be changed if already occupied
+- several original board image assets were too large to include in the repository
+
+These limitations are documented intentionally rather than hidden, because this repository represents an earlier stage of my software-development experience.
+
+## Running the project
+
+The original workflow is:
+
+1. Start the server from the `RbRServer` project.
+2. Wait until the server reports that it is ready.
+3. Start the client application.
+4. Launch additional client instances for additional players, up to four.
+
+Depending on the local Java/JavaFX configuration, the project may require IDE or module-path configuration before it runs on a recent JDK.
+
+## What this project taught me
+
+This project was one of my first substantial collaborative software projects. It introduced me to:
+
+- structuring an application across models, controllers and views
+- coordinating client/server components
+- representing game state through Java classes
+- serializing objects for network communication
+- working on a shared codebase with multiple contributors
+- dealing with incomplete features, integration issues and technical debt
+
+My more recent projects are primarily focused on Python, Data Engineering and AI, but I keep RobotRally public because it documents the evolution of my engineering experience.
+
+## Team
+
+- Alya Zouzou
+- Audric Girondin
+- Noa Thebaut
+- Jonathan Duckes
+- Lucas Martinez
+
+## Jonathan Duckes
+
+- GitHub - https://github.com/jonathanduc
+- LinkedIn - https://www.linkedin.com/in/jonathan-duckes/
+- Portfolio - https://jonathanduc.github.io/portfolio/
